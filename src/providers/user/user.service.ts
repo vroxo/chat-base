@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-
-import { AngularFireModule } from 'angularfire2';
-
 import 'rxjs/add/operator/map';
+import { AngularFire, FirebaseListObservable,  } from 'angularfire2';
 
-/*
-  Generated class for the UserProvider provider.
+import { User } from './../../models/user';
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class UserService {
 
-  constructor(
-    public af: AngularFireModule,
-    public http: Http) {
-    console.log('Hello UserProvider Provider');
-  }
+  users: FirebaseListObservable<User[]>
 
-  create(user: any){
-    
+  constructor(public af: AngularFire) {
+
+    this.users = this.af.database.list('/users');
+
+  }
+  create(user: User): firebase.Promise<void>{
+    return this.af.database.object(`/users/${user.uid}`)
+      .set(user)
   }
 
 }
