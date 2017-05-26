@@ -9,13 +9,13 @@ import { HomePage } from '../pages/home/home';
 import { SignupPage } from './../pages/signup/signup';
 
 import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
-import { UserProvider } from '../providers/user/user';
+import { UserService } from '../providers/user/user.service';
+import { AuthService } from '../providers/auth/auth.service';
 
 const firebaseAppConfig: FirebaseAppConfig = {
     apiKey: "AIzaSyByeyf2G3Wko_do_XkRzNGyJUfsPYNwOhs",
     authDomain: "chat-base-86122.firebaseapp.com",
     databaseURL: "https://chat-base-86122.firebaseio.com",
-    projectId: "chat-base-86122",
     storageBucket: "chat-base-86122.appspot.com",
     messagingSenderId: "475742687763"
   };
@@ -38,10 +38,11 @@ const firebaseAppConfig: FirebaseAppConfig = {
     SignupPage
   ],
   providers: [
+    AuthService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserProvider
+    UserService,
   ]
 })
 export class AppModule {}
